@@ -4,7 +4,9 @@
 
 ## Data collection from Telegram 
 
-* Collecting messages from a public channel/group
-   * Python script [here](https://github.com/IshitaGopal/TelegramProject/blob/code_for_data_collection/code/collect_all_messages.py) 
-   * Some useful resources
-      * Hide API keys using enviroment variables: [video](https://www.youtube.com/watch?v=YdgIWTYQ69A)
+* To collect all the messages from a public channel/group execute the following Python script in terminal [script](https://github.com/IshitaGopal/TelegramProject/blob/code_for_data_collection/code/collect_all_messages.py) 
+      1. This script requires a channel/group name as the input argument 
+         eg: ./collect_all_messages.py --channel_input nytimes will collect all the messages from New York Times channel on Telegram
+
+      2. The script will create a folder named nytimes in the chata_data directory specified in Config.py 
+
