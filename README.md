@@ -1,4 +1,4 @@
-# telegram-project
+# TelegramProject
 
 # Tutorials / Notebooks / Code
 
@@ -10,9 +10,23 @@ To collect all the messages from a public channel/group execute this Python [scr
 foo@bar:~$ ./collect_all_messages.py --channel_input nytimes
 ```
 
- The script creates a folder with the same name as the channel in which all the json files are stored. The chanel directory is stored in the chat_data root directory (see congig.py). The API Keys are stored as enviroment variables and are imported from the congig.py file.
+ The script creates a folder with the same name as the channel in which all the json files are stored. The chanel directory is stored in the "chat_data" root directory (see congig.py). The API Keys are stored as enviroment variables and are imported from the congig.py file. Eg json path:
  
  ```
- Eg json path: chat_data/nytimes/nytimes_1.json
+chat_data/nytimes/nytimes_1.json
 ```
+
+> **_NOTE:_** You will need your own API cridentials ([see here](https://docs.telethon.dev/en/stable/basic/signing-in.html))and add them in an .env file.  [This](https://www.youtube.com/watch?v=YdgIWTYQ69A) tutorial by Jonathan Soma shows how to create and save enviromemt variables in .env files. The format of the file should be as follows:
+
+```
+TELEGRAM_API_ID = ""
+TELEGRAM_API_HASH = ""
+PHONE_NUM = ""
+
+```
+
+
+
+
+ 
 
