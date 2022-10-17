@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from genericpath import exists
 from telethon.sync import TelegramClient
 import json
