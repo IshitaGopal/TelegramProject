@@ -7,7 +7,6 @@ import time
 from config import Config, write_json
 from pathlib import Path
 
-# channel_input = "@minsk97pro"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
