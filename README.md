@@ -12,12 +12,12 @@ foo@bar:~$ ./collect_all_messages.py --channel_input nytimes
 ```
 You will be prompted to input your phone number and autheticate by providing the code sent to you on Telegram. 
 
-The script creates a folder with the same name as the channel in which all the json files are stored. The chanel directory is stored in the "chat_data" root directory (see config.py). The API Keys are stored as enviroment variables and are imported from the congig.py file. Eg json path:
+The script creates a folder with the same name as the channel in which all the json files are stored. The chanel directory is stored in the "chat_data" root directory (see config.py). Eg json path:
  
  ```
 chat_data/nytimes/nytimes_1.json
 ```
-
+The API Keys are stored as enviroment variables and are imported from the congig.py file.
 ---
 **NOTE**
  You will need your own API cridentials ([see here](https://docs.telethon.dev/en/stable/basic/signing-in.html))and add them to a .env file.  [This](https://www.youtube.com/watch?v=YdgIWTYQ69A) tutorial by Jonathan Soma shows how to do this. The format of the .env file should be as follows:
