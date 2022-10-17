@@ -3,7 +3,6 @@ import json
 import pandas as pd
 import re
 from telethon.sync import TelegramClient
-import time
 from telethon import errors
 from dotenv import load_dotenv
 
