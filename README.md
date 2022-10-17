@@ -17,7 +17,9 @@ The script creates a folder with the same name as the channel in which all the j
  ```
 chat_data/nytimes/nytimes_1.json
 ```
+
 The API Keys are stored as enviroment variables and are imported from the congig.py file.
+
 ---
 **NOTE**
  You will need your own API cridentials ([see here](https://docs.telethon.dev/en/stable/basic/signing-in.html))and add them to a .env file.  [This](https://www.youtube.com/watch?v=YdgIWTYQ69A) tutorial by Jonathan Soma shows how to do this. The format of the .env file should be as follows:
