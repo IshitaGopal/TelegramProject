@@ -10,9 +10,9 @@ To collect all the messages from a public channel/group execute this Python [scr
 foo@bar:~$ ./collect_all_messages.py --channel_input nytimes
 ```
 
- The script creates a folder with the same name as the channel which is stored in the chat_data root directory. 
+ The script creates a folder with the same name as the channel in which all the json files are stored. The chanel directory is stored in the chat_data root directory (see congig.py). The API Keys are stored as enviroment variables and are imported from the congig.py file.
  
  ```
- Eg path chat_data/nytimes/nytimes_1.json
+ Eg json path: chat_data/nytimes/nytimes_1.json
 ```
 
