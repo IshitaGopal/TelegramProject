@@ -4,6 +4,7 @@
 
 ## Data collection from Telegram 
 
+### Collect all the messages 
 To collect all the messages from a public channel/group execute this Python [script](https://github.com/IshitaGopal/TelegramProject/blob/code_for_data_collection/code/collect_all_messages.py) in the terminal. You will need to provide a channel/group username as the input. The below example will collect all the messages from New York Time's telegram channel (viewable at t.me/nytimes) in json format. Each json file will contain a maximum of 10000 messages. There will be multiple json files if there are more than 10000 messages to collect.
      
 ```console
@@ -16,7 +17,9 @@ foo@bar:~$ ./collect_all_messages.py --channel_input nytimes
 chat_data/nytimes/nytimes_1.json
 ```
 
-> **_NOTE:_** You will need your own API cridentials ([see here](https://docs.telethon.dev/en/stable/basic/signing-in.html))and add them in an .env file.  [This](https://www.youtube.com/watch?v=YdgIWTYQ69A) tutorial by Jonathan Soma shows how to create and save enviromemt variables in .env files. The format of the file should be as follows:
+---
+**NOTE**
+ You will need your own API cridentials ([see here](https://docs.telethon.dev/en/stable/basic/signing-in.html))and add them in an .env file.  [This](https://www.youtube.com/watch?v=YdgIWTYQ69A) tutorial by Jonathan Soma shows how to create and save enviromemt variables in .env files. The format of the .env file should be as follows:
 
 ```
 TELEGRAM_API_ID = ""
@@ -24,7 +27,7 @@ TELEGRAM_API_HASH = ""
 PHONE_NUM = ""
 
 ```
-
+---
 
 
 
