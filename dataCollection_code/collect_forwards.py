@@ -9,13 +9,13 @@ import logging
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--channel_df", type=str, required=True)
+    parser.add_argument("--channel_pkl_input", type=str, required=True)
     args = parser.parse_args()
     # logging.basicConfig(level=logging.DEBUG)
 
     start_time = time.time()
 
-    channel_df = args.channel_df
+    channel_df = pd.read_pickle(args.channel_pkl_input)
     fwds_master_file = Config.fwds_master_file
 
     # check if forwards master file exists else create one
@@ -42,18 +42,24 @@ if __name__ == "__main__":
     channel_fwd_ids = channel_fwd_ids.drop_duplicates().astype(int).tolist()
     print(f"Total number of unique forwards found: {len(channel_fwd_ids)}")
 
-    # filter out forward ids which already exist in the master list
-    # collect information for the remaining ids
+    # Filter out forward ids which already exist in the master list
+
     new_fwd_ids = [value for value in channel_fwd_ids if value not in fwds_master_ids]
     print(f"Number of forwards to collect: {len(new_fwd_ids)}")
 
+    # Collect information for the remaining ids using collect_fwds_info()
+    # update the master forwrds df
     if len(new_fwd_ids) > 0:
         new_fwds_df = collect_fwds_info(new_fwd_ids)
         fwds_master_df = pd.concat([fwds_master_df, new_fwds_df])
         fwds_master_df.to_pickle(fwds_master_file)
 
-    # Merge in all_fwds into the main df and save it
+    # Merge in forwards info into the channel df
     channel_df = channel_df.merge(fwds_master_df, how="left", on="fwd_id")
     print("Merged forwards information")
 
-    channel_df.to_pickle(pkl_name_path)
+    # Save the updated channel df
+    channel_pkl_path = os.path.join(
+        Config.processed_data_dir, Config.chat_dfs_dir, args.channel_pkl_input
+    )
+    channel_df.to_pickle(channel_pkl_path)

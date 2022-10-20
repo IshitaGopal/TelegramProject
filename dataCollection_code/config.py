@@ -16,9 +16,9 @@ class Config:
     phone = os.getenv("PHONE_NUM")
     session_name = "<session_name>"
 
-    jsonChat_dir = "jsonChat_data"
-    processed_dir = "processed_data"
-    chatDf_dir = "chat_dfs"
+    json_chat_dir = "json_chat_data"
+    processed_data_dir = "processed_data"
+    chat_dfs_dir = "chat_dfs"
     fwds_master_file = "fwds_master.pkl"
 
 
@@ -94,8 +94,8 @@ def get_cleaned_dataframe(df):
 
 
 def collect_fwds_info(ids):
-    """Takes a list of channel ids and and
-    returns a dataframe with defined fields"""
+    """Takes a list of channel ids and
+    returns a dataframe with below defined columns"""
 
     n = len(ids)
     fwd_id = [None] * n
