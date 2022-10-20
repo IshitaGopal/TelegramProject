@@ -12,7 +12,7 @@ foo@bar:~$ ./collect_all_messages.py --channel_input nytimes
 ```
 You will be prompted to input your phone number and autheticate by providing the code sent to you on Telegram. 
 
-The script creates a folder with the same name as the channel in which all the json files are stored. The chanel directory is stored in the "chat_data" root directory (see config.py). Eg path of json file:
+The script first creates a folder with the same name as the channel and stores all  json files in it. The chanel folder is stored in the "chat_data" root directory (see config.py). E.g. path of a json file:
  
  ```
 chat_data/nytimes/nytimes_1.json
