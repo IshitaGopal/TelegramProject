@@ -1,5 +1,5 @@
 import os
-from config import Config, extract_from_dict, collect_fwds_info
+from config import Config, collect_fwds_info
 import pandas as pd
 import glob as glob
 import time
@@ -9,17 +9,17 @@ import logging
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--channel_pickleFile", type=str, required=True)
+    parser.add_argument("--channel_df", type=str, required=True)
     args = parser.parse_args()
     # logging.basicConfig(level=logging.DEBUG)
 
     start_time = time.time()
 
-    channel_df_input = args.channel_pickleFile
-    fwds_master_file_path = Config.fwds_master_file
+    channel_df = args.channel_df
+    fwds_master_file = Config.fwds_master_file
 
     # check if forwards master file exists else create one
-    if os.path.exists(fwds_master_file_path) == False:
+    if os.path.exists(fwds_master_file) == False:
         fwd_cols = [
             "fwd_from",
             "fwd_id",
@@ -31,26 +31,29 @@ if __name__ == "__main__":
             "fwd_is_megagroup",
             "fwd_is_gigagroup",
         ]
-        pd.DataFrame(columns=fwd_cols).to_pickle(fwds_file_path)
+        pd.DataFrame(columns=fwd_cols).to_pickle(fwds_master_file)
 
-    # existing fwd ids collected from other channels
-    old_fwds = pd.read_pickle(fwds_master_file_path)
-    old_fwd_ids = old_fwds.fwd_id.dropna().astype(int).tolist()
+    # existing list of forwards ids
+    fwds_master_df = pd.read_pickle(fwds_master_file)
+    fwds_master_ids = fwds_master_df.fwd_id.dropna().astype(int).tolist()
 
-    # get non duplicated fwd ids
-    channel_fwd_ids = clean_df[clean_df.fwd_type == "PeerChannel"]["fwd_id"]
+    # get a list of unique forwrd ids in the input dataframe
+    channel_fwd_ids = channel_df[channel_df.fwd_type == "PeerChannel"]["fwd_id"]
     channel_fwd_ids = channel_fwd_ids.drop_duplicates().astype(int).tolist()
-    print(f"Total number of unique forwards from channels: {len(channel_fwd_ids)}")
+    print(f"Total number of unique forwards found: {len(channel_fwd_ids)}")
 
-    # collect new fwds which aren't in all_fwds
-    new_fwds = [value for value in channel_fwd_ids if value not in old_fwd_ids]
-    print(f"Number of new forwards: {len(new_fwds)}")
+    # filter out forward ids which already exist in the master list
+    # collect information for the remaining ids
+    new_fwd_ids = [value for value in channel_fwd_ids if value not in fwds_master_ids]
+    print(f"Number of forwards to collect: {len(new_fwd_ids)}")
 
-    if len(new_fwds) > 0:
-        new_fwds_df = collect_fwds_info(new_fwds)
-        old_fwds = pd.concat([old_fwds, new_fwds_df])
-        old_fwds.to_pickle(fwds_file_path)
+    if len(new_fwd_ids) > 0:
+        new_fwds_df = collect_fwds_info(new_fwd_ids)
+        fwds_master_df = pd.concat([fwds_master_df, new_fwds_df])
+        fwds_master_df.to_pickle(fwds_master_file)
 
-    # Merge in all_fwds into the main df
-    clean_df = clean_df.merge(old_fwds, how="left", on="fwd_id")
-    print("Merged in the forwards")
+    # Merge in all_fwds into the main df and save it
+    channel_df = channel_df.merge(fwds_master_df, how="left", on="fwd_id")
+    print("Merged forwards information")
+
+    channel_df.to_pickle(pkl_name_path)
